@@ -29,6 +29,9 @@
   <link rel="stylesheet" href="/static/css/text.css">
   <link rel="stylesheet" href="/static/css/960.css">
 
+  <!-- Custom styling -->
+  <link rel="stylesheet" href="/static/css/custom.css">
+
   <!-- For the less-enabled mobile browsers like Opera Mini -->
   <link rel="stylesheet" media="handheld" href="/static/css/handheld.css?v=1">
 
@@ -47,7 +50,7 @@
 <!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
 
   <div id="container" class="container_12">
-    <header>
+    <header class="grid_12">
 
         {% block header %}
         Header goes here
@@ -55,7 +58,9 @@
 
     </header>
 
-    <div id="main">
+    <div class="clear"></div>
+
+    <div id="main" class="grid_12">
 
         <div class="flash_messages">
             {% for message in get_flashed_messages() %}
@@ -71,7 +76,9 @@
 
     </div>
 
-    <footer>
+    <div class="clear"></div>
+
+    <footer class="grid_4 prefix_4 suffix_4">
 
         {% block footer %}
         Footer goes here
