@@ -27,12 +27,12 @@ Currently, the install script assumes that you are already on the target machine
 
 In the future, we could switch over to deployment via `Fabric <http://fabfile.org/>`_ or even deploy our app in an AppEngine-esque manner using `Silver Lining <http://cloudsilverlining.org/#what-does-it-do>`_.
 
-UI : HTML5 Boilerplate [TODO]
------------------------------
+UI : HTML5 Boilerplate + 960 Grid System
+----------------------------------------
 
-Use `HTML5 Boilerplate code <http://html5boilerplate.com/>`_ for the UI. This makes the frontend future-ready *and* compatible all the way back to IE6.
+Use `HTML5 Boilerplate code <http://html5boilerplate.com/>`_ for the UI. This makes the frontend future-ready *and* compatible all the way back to IE6. Don't forget to `watch the video <http://net.tutsplus.com/tutorials/html-css-techniques/the-official-guide-to-html5-boilerplate/>`_.
 
-Don't forget to `watch the video <http://net.tutsplus.com/tutorials/html-css-techniques/the-official-guide-to-html5-boilerplate/>`_.
+Use `960 Grid System <http://960.gs/>`_ for the layout of your pages.
 
 API : simpleapi
 ---------------
