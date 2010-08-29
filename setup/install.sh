@@ -193,6 +193,9 @@ git add .
 git ci -m "Initial commit for site $SITE_NAME"
 sed -i -e "s/origin/flask_boilerplate/g" ".git/config"
 
+info "Fetching submodules"
+bash $SITE_CODE_DIR/setup/copy_html5.sh $SITE_CODE_DIR
+
 info "DONE"
 
 info "Start adding your actual website code to $SITE_CODE_DIR/$APP_NAME.py and see the changes live on $SITE_NAME !"
