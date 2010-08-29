@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 
+{% block header %}
+{{ title }}
+{% endblock %}
+
 {% block body %}
-<div id="siteheader">
-    <h1>{SITE_NAME}</h1>
-</div>
-<hr/>
 <p>
 Hello World, at {{ now() }}
 </p>
