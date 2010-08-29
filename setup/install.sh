@@ -134,6 +134,8 @@ fi
 
 info "Cloning flask_boilerplate repository"
 git clone $BOILERPLATE $SITE_CODE_DIR || critical "Could not clone $BOILERPLATE git repository"
+cd $SITE_CODE_DIR
+git checkout feature/html5
 
 info "Installing essential Apache build packages and Python library dependencies"
 
@@ -189,9 +191,12 @@ fi
 
 info "Setting up the new git repo"
 cd "$SITE_CODE_DIR"
+sed -i -e "s/origin/flask_boilerplate/g" ".git/config"
 git add .
 git ci -m "Initial commit for site $SITE_NAME"
-sed -i -e "s/origin/flask_boilerplate/g" ".git/config"
+
+info "Fetching submodules"
+bash $SITE_CODE_DIR/setup/copy_html5.sh $SITE_CODE_DIR
 
 info "DONE"
 
