@@ -19,7 +19,7 @@ def index():
     log.debug('rendering index')
     return render_template(
                 'index.html',
-                title="Welcome to {0}".format(config.SITE_NAME),
+                config=config,
                 now=datetime.datetime.now,
             )
 
