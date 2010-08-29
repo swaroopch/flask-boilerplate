@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{ title }}</title>
+
+        <!-- http://www.favicon.cc/?action=icon&file_id=237804 -->
+        <link href="{{ url_for('static', filename='favicon.ico') }}" rel="icon" type="image/x-icon" />
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}" />
+
+        <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+
+    </head>
+    <body>
+        <div id="header">
+        </div>
+
+        <div id="content">
+            <div class="flash_messages">
+                {% for message in get_flashed_messages() %}
+                <div class="flash">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+
+            {% block body %}
+            Content goes here.
+            {% endblock %}
+        </div>
+
+        <div class="footer">
+        </div>
+
+    </body>
+</html>

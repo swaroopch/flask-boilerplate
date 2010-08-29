@@ -1,0 +1,32 @@
+<VirtualHost *:80>
+    ServerName {SITE_NAME}
+    ServerAlias www.{SITE_NAME}
+    ServerAdmin {ADMIN_EMAIL}
+
+    Alias /static {HOME}/web/{SITE_NAME}/public/static
+    <Directory {HOME}/web/{SITE_NAME}/public>
+        Order allow,deny
+        Allow from all
+    </Directory>
+
+    WSGIScriptAlias / {HOME}/web/{SITE_NAME}/private/{SITE_NAME}/setup/{APP_NAME}.wsgi
+
+    <Directory {HOME}/web/{SITE_NAME}/private/{SITE_NAME}>
+        # Change this to Off when you go into "We're launching" mode.
+        WSGIScriptReloading On
+
+        Order deny,allow
+        Allow from all
+    </Directory>
+
+    DocumentRoot {HOME}/web/{SITE_NAME}/public
+
+    # FIXME Ideally, should have been {HOME}/web/{SITE_NAME}/log/error.log but not able to figure out the file permissions
+    ErrorLog /tmp/{SITE_NAME}_error.log
+    LogLevel warn
+    # FIXME Ideally, should have been {HOME}/web/{SITE_NAME}/log/access.log but not able to figure out the file permissions
+    CustomLog /tmp/{SITE_NAME}_access.log combined
+
+</VirtualHost>
+
+# vim: ft=apache
