@@ -184,6 +184,16 @@ info "Setting up the new git repo"
 cd "$SITE_CODE_DIR"
 sed -i -e "s/origin/flask_boilerplate/g" ".git/config"
 git add .
+
+cd "$SITE_CODE_DIR/setup"
+git rm apache_site_entry
+git rm run.wsgi
+git rm install.sh
+
+cd "$SITE_CODE_DIR"
+git rm README.rst
+git rm LICENSE.txt
+
 git ci -m "Initial commit for site $SITE_NAME"
 
 info "Fetching submodules"
