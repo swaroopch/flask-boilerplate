@@ -16,7 +16,7 @@ Get Started
 
 #. Run ``setup/install.sh your.domain.name``
 #. That's it. Yes, really.
-#. Okay, you *do* have to write your code in `flask_application.py`.
+#. Okay, you *do* have to write your code in `flask_application/controllers/frontend.py`.
 
 Server
 ------
