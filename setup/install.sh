@@ -190,7 +190,7 @@ git rm apache_site_entry
 git rm run.wsgi
 git rm install.sh
 
-cdd "$SITE_CODE_DIR"
+cd "$SITE_CODE_DIR"
 git rm README.rst
 git rm LICENSE.txt
 
