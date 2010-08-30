@@ -177,6 +177,7 @@ then
     sudo cp $SITE_NAME $APACHE_SITE_CONFIG || critical "Could not copy apache config file to apache sites-available directory"
     sudo /usr/sbin/apache2ctl configtest || critical "Apache config file check failed"
     sudo a2ensite $SITE_NAME || critical "Could not enable $SITE_NAME site"
+    sudo a2enmod headers # Needed for some features of the .htaccess provided by the HTML5-boilerplate
     sudo /etc/init.d/apache2 restart || critical "Apache restart failed"
 fi
 
