@@ -1,4 +1,9 @@
 
+.container_12 {
+    /* Enable background during design of the UI */
+    /* background: #fff url(/static/img/12_col.gif) repeat-y; */
+}
+
 footer {
     margin-top: 50px;
 }
