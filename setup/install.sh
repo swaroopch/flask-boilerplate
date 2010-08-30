@@ -191,6 +191,6 @@ bash $SITE_CODE_DIR/setup/copy_html5.sh $SITE_CODE_DIR
 
 info "DONE"
 
-info "Start adding your actual website code to $SITE_CODE_DIR/$APP_NAME/views.py and see the changes live on $SITE_NAME !"
+info "Start adding your actual website code to $SITE_CODE_DIR/$APP_NAME/controllers/frontend.py and see the changes live on $SITE_NAME !"
 #set +x
 

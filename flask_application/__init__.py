@@ -13,5 +13,5 @@ app.secret_key = '{SECRET_KEY}'
 
 log = config.logger(config.SITE_NAME)
 
-import flask_application.views
+import flask_application.controllers
 
