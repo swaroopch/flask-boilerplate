@@ -11,9 +11,10 @@ shift
 
 [[ -n "$SITE_CODE_DIR" ]] || die "Usage: $0 SITE_CODE_DIR"
 
+APP_NAME="flask_application"
 HTML5_DIR="$SITE_CODE_DIR/html5"
-STATIC_DIR="$SITE_CODE_DIR/static"
-TEMPLATE_DIR="$SITE_CODE_DIR/templates"
+STATIC_DIR="$SITE_CODE_DIR/$APP_NAME/static"
+TEMPLATE_DIR="$SITE_CODE_DIR/$APP_NAME/templates"
 
 ## main ##
 
