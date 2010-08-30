@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 from flask import request, render_template
-from flask_application import app
+from flask_application import app, log, config
+
+import datetime
 
 @app.route('/')
 def index():
