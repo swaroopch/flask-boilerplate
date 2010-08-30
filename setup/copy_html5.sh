@@ -15,6 +15,7 @@ APP_NAME="flask_application"
 HTML5_DIR="$SITE_CODE_DIR/html5"
 STATIC_DIR="$SITE_CODE_DIR/$APP_NAME/static"
 TEMPLATE_DIR="$SITE_CODE_DIR/$APP_NAME/templates"
+PUBLIC_DIR="$SITE_CODE_DIR/../../public"
 
 ## main ##
 
@@ -33,4 +34,6 @@ cp -r $HTML5_DIR/js/* $STATIC_DIR/js/
 
 mkdir -p $STATIC_DIR/css
 cp $HTML5_DIR/css/* $STATIC_DIR/css/
+
+cp $HTML5_DIR/.htaccess $PUBLIC_DIR/.htaccess
 
