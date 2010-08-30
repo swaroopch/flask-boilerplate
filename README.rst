@@ -42,7 +42,7 @@ It uses `960 Grid System <http://960.gs/>`_ for the layout of your pages.
 API : simpleapi
 ---------------
 
-It installs the `simpleapi <http://simpleapi.de/>`_ package by default, which can be used to write APIs.
+It installs the `simpleapi <http://simpleapi.de/>`_ package by default, which can be used to create APIs.
 
 Note: I haven't played around much with simpleapi, so I may switch over to something else at a later point.
 
