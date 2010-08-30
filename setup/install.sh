@@ -127,7 +127,6 @@ fi
 info "Cloning flask_boilerplate repository"
 git clone $BOILERPLATE $SITE_CODE_DIR || critical "Could not clone $BOILERPLATE git repository"
 cd $SITE_CODE_DIR
-git checkout feature/html5
 
 info "Installing essential Apache build packages and Python library dependencies"
 
