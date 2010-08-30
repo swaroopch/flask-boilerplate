@@ -32,19 +32,13 @@ shift
 
 if [[ -z "$SITE_NAME" ]]
 then
-    echo "Usage: $0 SITE_NAME [APP_NAME.py]"
+    echo "Usage: $0 SITE_NAME"
     exit 1
 fi
 
-APP_NAME=$1
-shift
-
-if [[ -z "$APP_NAME" ]]
-then
-    APP_NAME="flask_application.py"
-fi
-
 ADMIN_EMAIL="admin@$SITE_NAME"
+
+APP_NAME="flask_application"
 
 ## Utilities ##
 
@@ -92,8 +86,7 @@ BOILERPLATE=`readlink -f $(dirname $script_path)/..`
 
 ## Assumptions ##
 
-APP_NAME=${APP_NAME%.py}
-[[ -f "$BOILERPLATE/$APP_NAME.py" ]] || critical "$BOILERPLATE/$APP_NAME.py is missing"
+[[ -f "$BOILERPLATE/$APP_NAME/__init__.py" ]] || critical "$BOILERPLATE/$APP_NAME/__init__.py is missing"
 
 SITE_TOP_DIR="$HOME/web/$SITE_NAME"
 
@@ -107,7 +100,6 @@ SITE_PUBLIC_DIR="$SITE_TOP_DIR/public"
 #set -x
 
 info "Domain name --> $SITE_NAME"
-info "Application module --> $APP_NAME"
 
 info "Checking Apache packages"
 if [[ -z $(dpkg -l | fgrep -i libapache2-mod-wsgi) ]]
@@ -158,7 +150,7 @@ sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" templates/index.html
 
 info "Generating secret key"
 SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(-_=+)") for i in range(50)])'`
-sed -i -e "s/{SECRET_KEY}/$SECRET_KEY/g" -e "s/{SITE_NAME}/$SITE_NAME/g" "$APP_NAME.py" || critical "Could not fill $APP_NAME.py"
+sed -i -e "s/{SECRET_KEY}/$SECRET_KEY/g" -e "s/{SITE_NAME}/$SITE_NAME/g" "$APP_NAME/__init__.py" || critical "Could not fill $APP_NAME/__init__.py"
 
 cd "$SITE_CODE_DIR/setup"
 
@@ -174,7 +166,7 @@ fi
 info "Checking static directory symlink in public folder"
 if [[ ! -L "$SITE_PUBLIC_DIR/static" ]]
 then
-    ln -s "$SITE_CODE_DIR/static" "$SITE_PUBLIC_DIR/static" || critical "Could not symlink static folder to public"
+    ln -s "$SITE_CODE_DIR/$APP_NAME/static" "$SITE_PUBLIC_DIR/static" || critical "Could not symlink static folder to public"
 fi
 
 info "Adding Apache site configuration"
@@ -200,6 +192,6 @@ bash $SITE_CODE_DIR/setup/copy_html5.sh $SITE_CODE_DIR
 
 info "DONE"
 
-info "Start adding your actual website code to $SITE_CODE_DIR/$APP_NAME.py and see the changes live on $SITE_NAME !"
+info "Start adding your actual website code to $SITE_CODE_DIR/$APP_NAME/views.py and see the changes live on $SITE_NAME !"
 #set +x
 
