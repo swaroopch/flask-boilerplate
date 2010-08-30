@@ -140,7 +140,7 @@ install_apache_package python-profiler
 pip install python-dateutil || critical "Could not download/install dateutil module"
 pip install simpleapi || critical "Could not download/install simpleapi module"
 
-cd "$SITE_CODE_DIR"
+cd "$SITE_CODE_DIR/$APP_NAME"
 
 info "Updating config file"
 sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" config.py
@@ -150,7 +150,7 @@ sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" templates/index.html
 
 info "Generating secret key"
 SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(-_=+)") for i in range(50)])'`
-sed -i -e "s/{SECRET_KEY}/$SECRET_KEY/g" -e "s/{SITE_NAME}/$SITE_NAME/g" "$APP_NAME/__init__.py" || critical "Could not fill $APP_NAME/__init__.py"
+sed -i -e "s/{SECRET_KEY}/$SECRET_KEY/g" -e "s/{SITE_NAME}/$SITE_NAME/g" "__init__.py" || critical "Could not fill $APP_NAME/__init__.py"
 
 cd "$SITE_CODE_DIR/setup"
 
