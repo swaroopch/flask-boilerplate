@@ -202,7 +202,7 @@ cd "$SITE_CODE_DIR"
 git rm README.rst
 git rm LICENSE.txt
 
-git ci -m "Initial commit for site $SITE_NAME"
+git commit -m "Initial commit for site $SITE_NAME"
 
 info "Fetching submodules"
 bash $SITE_CODE_DIR/setup/copy_html5.sh $SITE_CODE_DIR
