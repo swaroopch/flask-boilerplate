@@ -102,6 +102,7 @@ SITE_PUBLIC_DIR="$SITE_TOP_DIR/public"
 info "Domain name --> $SITE_NAME"
 
 info "Checking Apache packages"
+sudo aptitude update # Otherwise, a fresh 64-bit system gives 404 for wsgi deb package...
 if [[ -z $(dpkg -l | fgrep -i libapache2-mod-wsgi) ]]
 then
     sudo aptitude install apache2 apache2.2-common apache2-mpm-prefork apache2-utils libapache2-mod-wsgi || critical "Could not install Apache packages"
@@ -124,6 +125,8 @@ then
     easy_install pip
 fi
 
+PIP=$PYENV/bin/pip
+
 info "Cloning flask_boilerplate repository"
 git clone $BOILERPLATE $SITE_CODE_DIR || critical "Could not clone $BOILERPLATE git repository"
 cd $SITE_CODE_DIR
@@ -131,13 +134,13 @@ cd $SITE_CODE_DIR
 info "Installing essential Apache build packages and Python library dependencies"
 
 #Flask
-pip install Flask || critical "Could not download/install Flask module"
+$PIP install Flask || critical "Could not download/install Flask module"
 
 # simpleapi
 install_apache_package python-profiler
 # simpleapi depends on this, but doesn't explicitly state it(!) and installation errors out, so install it first.
-pip install python-dateutil || critical "Could not download/install dateutil module"
-pip install simpleapi || critical "Could not download/install simpleapi module"
+$PIP install python-dateutil || critical "Could not download/install dateutil module"
+$PIP install simpleapi || critical "Could not download/install simpleapi module"
 
 cd "$SITE_CODE_DIR/$APP_NAME"
 
