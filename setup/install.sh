@@ -109,23 +109,24 @@ then
 fi
 
 info "Checking Python environment"
-if [[ -z $(dpkg -l | fgrep -i python-virtualenv) ]]
+if [[ -z $(dpkg -l | fgrep -i python-setuptools) ]]
 then
-    sudo aptitude install python-virtualenv || critical "Could not install virtualenv package"
+    sudo aptitude install python-setuptools || critical "Could not install setuptools package"
+    sudo easy_install virtualenv==tip
 fi
 PYENV="$HOME/local/pyenv"
 if [[ ! -d "$PYENV" ]]
 then
     mkdir -p $HOME/local
     cd $HOME/local
+    export VIRTUALENV_USE_DISTRIBUTE=1
+    export VIRTUAL_ENV_DISABLE_PROMPT=1
     virtualenv pyenv
-    export PATH="$PYENV:$PATH"
-    info "Adding $PYENV/bin to your PATH in ~/.bashrc"
-    echo >> "$HOME/.bashrc" && echo "export PATH=$PYENV/bin:\$PATH" >> "$HOME/.bashrc"
+    source pyenv/bin/activate
+    info "Activating $PYENV python environment in your ~/.bashrc"
+    echo >> "$HOME/.bashrc" && echo "source $PYENV/bin/activate" >> "$HOME/.bashrc"
     easy_install pip
 fi
-
-PIP=$PYENV/bin/pip
 
 info "Cloning flask_boilerplate repository"
 git clone $BOILERPLATE $SITE_CODE_DIR || critical "Could not clone $BOILERPLATE git repository"
@@ -134,7 +135,7 @@ cd $SITE_CODE_DIR
 info "Installing essential Apache build packages and Python library dependencies"
 
 #Flask
-$PIP install Flask || critical "Could not download/install Flask module"
+pip install Flask || critical "Could not download/install Flask module"
 
 # simpleapi
 if [[ $(uname -a) =~ "x86_64" ]]
@@ -143,8 +144,8 @@ then
 else
     install_apache_package python-profiler
     # simpleapi depends on this, but doesn't explicitly state it(!) and installation errors out, so install it first.
-    $PIP install python-dateutil || critical "Could not download/install dateutil module"
-    $PIP install simpleapi || critical "Could not download/install simpleapi module"
+    pip install python-dateutil || critical "Could not download/install dateutil module"
+    pip install simpleapi || critical "Could not download/install simpleapi module"
 fi
 
 cd "$SITE_CODE_DIR/$APP_NAME"
@@ -207,6 +208,10 @@ git commit -m "Initial commit for site $SITE_NAME"
 
 info "Fetching submodules"
 bash $SITE_CODE_DIR/setup/copy_html5.sh $SITE_CODE_DIR
+
+info "Switching to develop branch"
+cd "$SITE_CODE_DIR"
+git co develop
 
 info "DONE"
 
