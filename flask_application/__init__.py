@@ -15,10 +15,10 @@ from flask import Flask
 app = Flask(__name__)
 
 # Config
-if os.getenv('DEBUGGING') == 'yes':
+if os.getenv('DEV') == 'yes':
     app.config.from_object('flask_application.config.DevelopmentConfig')
     app.logger.info("Config: Development")
-elif os.getenv('TESTING') == 'yes':
+elif os.getenv('TEST') == 'yes':
     app.config.from_object('flask_application.config.TestConfig')
     app.logger.info("Config: Test")
 else:
