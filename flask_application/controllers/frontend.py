@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 
-from flask import Module, request, render_template
-from flask_application import config
-
 import datetime
 
-log = config.logger(__name__)
+from flask import Module, request, render_template
+from flask_application import app
+
 frontend = Module(__name__)
 
 @frontend.route('/')
 def index():
-    log.debug('rendering index')
+    if app.debug:
+        app.logger.debug('rendering index')
     return render_template(
                 'index.html',
-                config=config,
+                config=app.config,
                 now=datetime.datetime.now,
             )
 

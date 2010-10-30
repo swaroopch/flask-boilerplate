@@ -1,30 +1,21 @@
 #!/usr/bin/env python
 
-## Imports ##
+# http://flask.pocoo.org/docs/config/#development-production
 
-import os
-import logging
-import random
+class Config(object):
+    SECRET_KEY = '{SECRET_KEY}'
+    SITE_NAME = '{SITE_NAME}'
 
-## Functionality ##
+class ProductionConfig(Config):
+    DEBUG = False
+    TESTING = False
 
-logging.basicConfig(
-    level=logging.DEBUG,
-    format='[%(asctime)s] [%(name)s] [%(levelname)s] %(message)s',
-    datefmt='%Y%m%d-%H:%M%p',
-)
+class TestConfig(Config):
+    DEBUG = False
+    TESTING = True
 
-def logger(name):
-    return logging.getLogger(name)
-
-def is_dev_env():
-    global environment
-    return environment == 'development'
-
-## The actual configuration ##
-
-SITE_NAME = '{SITE_NAME}'
-
-# You must change these for your specific deployment:
-environment = 'development'
+class DevelopmentConfig(Config):
+    '''Use "if app.debug" anywhere in your code, that code will run in development code.'''
+    DEBUG = True
+    TESTING = True
 
