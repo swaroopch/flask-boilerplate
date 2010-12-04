@@ -17,6 +17,7 @@ Get Started
 #. Run ``setup/install.sh your.domain.name``
 #. That's it. Yes, really.
 #. Okay, you *do* have to write your code in `flask_application/controllers/frontend.py`.
+#. And when you edit your code, use `fab deploy` to upload the latest code to a server.
 
 Modular
 -------
@@ -39,15 +40,9 @@ It uses `HTML5 Boilerplate code <http://html5boilerplate.com/>`_ for the UI. Thi
 
 It uses `960 Grid System <http://960.gs/>`_ for the layout of your pages.
 
-API : simpleapi
----------------
-
-It installs the `simpleapi <http://simpleapi.de/>`_ package by default, which can be used to create APIs.
-
-Note: I haven't played around much with simpleapi, so I may switch over to something else at a later point.
-
 Other Things to Consider
 ------------------------
 
+- API wrapper like `simpleapi <http://simpleapi.de/>`_
 - `Mobile user agent detection <http://pypi.python.org/pypi/mobile.sniffer>`_ to redirect users to a mobile version of the website.
 

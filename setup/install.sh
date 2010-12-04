@@ -134,19 +134,11 @@ cd $SITE_CODE_DIR
 
 info "Installing essential Apache build packages and Python library dependencies"
 
-#Flask
+# Flask
 pip install Flask || critical "Could not download/install Flask module"
 
-# simpleapi
-if [[ $(uname -a) =~ "x86_64" ]]
-then
-    warning "There is no python-profiler on x86_64, so not installing simpleapi"
-else
-    install_apache_package python-profiler
-    # simpleapi depends on this, but doesn't explicitly state it(!) and installation errors out, so install it first.
-    pip install python-dateutil || critical "Could not download/install dateutil module"
-    pip install simpleapi || critical "Could not download/install simpleapi module"
-fi
+# Fabric
+pip install Fabric
 
 cd "$SITE_CODE_DIR/$APP_NAME"
 
