@@ -76,7 +76,7 @@ function install_apache_package
     shift
     [[ -z "$name" ]] && critical "Code Error: Called install_apache_package without a name"
 
-    [[ -z $(dpkg -l | fgrep -i $name) ]] && ( sudo aptitude install $name || critical "Could not apt-get $name package" )
+    [[ -z $(dpkg -l | fgrep -i $name) ]] && ( sudo apt-get install $name || critical "Could not apt-get $name package" )
 }
 
 ## Environment ##
@@ -102,16 +102,16 @@ SITE_PUBLIC_DIR="$SITE_TOP_DIR/public"
 info "Domain name --> $SITE_NAME"
 
 info "Checking Apache packages"
-sudo aptitude update # Otherwise, a fresh 64-bit system gives 404 for wsgi deb package...
+sudo apt-get update # Otherwise, a fresh 64-bit system gives 404 for wsgi deb package...
 if [[ -z $(dpkg -l | fgrep -i libapache2-mod-wsgi) ]]
 then
-    sudo aptitude install apache2 apache2.2-common apache2-mpm-prefork apache2-utils libapache2-mod-wsgi || critical "Could not install Apache packages"
+    sudo apt-get install apache2 apache2.2-common apache2-mpm-prefork apache2-utils libapache2-mod-wsgi || critical "Could not install Apache packages"
 fi
 
 info "Checking Python environment"
 if [[ -z $(dpkg -l | fgrep -i python-setuptools) ]]
 then
-    sudo aptitude install python-setuptools || critical "Could not install setuptools package"
+    sudo apt-get install python-setuptools || critical "Could not install setuptools package"
     sudo easy_install virtualenv==tip
 fi
 PYENV="$HOME/local/pyenv"
