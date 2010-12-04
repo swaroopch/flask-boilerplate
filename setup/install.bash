@@ -174,6 +174,7 @@ then
 fi
 
 info "Adding Apache site configuration"
+cd "$SITE_CODE_DIR/setup"
 APACHE_SITE_CONFIG="/etc/apache2/sites-available/$SITE_NAME"
 if [[ ! -f $APACHE_SITE_CONFIG ]]
 then
