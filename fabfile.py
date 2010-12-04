@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from fabric.api import env, local, put, run, sudo
+from fabric.api import env, local, put, cd, run, sudo
 from fabric import colors
 
 # NOTE Add host names here so that you do not have to specify it every time on the command line
@@ -20,7 +20,8 @@ def deploy():
     run('rm -f /tmp/{0}.zip'.format(SITE_NAME))
     put('/tmp/{0}.zip'.format(SITE_NAME), '/tmp/')
     run('mkdir -p $HOME/web/{0}'.format(SITE_NAME))
-    run('cd $HOME/web/{0} && unzip /tmp/{0}.zip'.format(SITE_NAME))
+    with cd('$HOME/web/{0}'.format(SITE_NAME)):
+        run('unzip /tmp/{0}.zip'.format(SITE_NAME))
     # Cleanup
     run('rm -f /tmp/{0}.zip'.format(SITE_NAME))
     local('rm -f /tmp/{0}.zip'.format(SITE_NAME))
