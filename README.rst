@@ -14,7 +14,7 @@ Why is this useful? Because:
 Get Started
 -----------
 
-#. Run ``setup/install.sh your.domain.name``
+#. Run ``bash setup/install.bash your.domain.name``
 #. That's it. Yes, really.
 #. Okay, you *do* have to write your code in `flask_application/controllers/frontend.py`.
 #. And when you edit your code, use `fab deploy` to upload the latest code to a server.

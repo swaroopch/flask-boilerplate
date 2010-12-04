@@ -194,7 +194,7 @@ git add .
 cd "$SITE_CODE_DIR/setup"
 git rm apache_site_entry
 git rm run.wsgi
-git rm install.sh
+git rm install.bash
 
 cd "$SITE_CODE_DIR"
 git rm README.rst
@@ -203,7 +203,7 @@ git rm LICENSE.txt
 git commit -m "Initial commit for site $SITE_NAME"
 
 info "Fetching submodules"
-bash $SITE_CODE_DIR/setup/copy_html5.sh $SITE_CODE_DIR
+bash $SITE_CODE_DIR/setup/copy_html5.bash $SITE_CODE_DIR
 
 info "Switching to develop branch"
 cd "$SITE_CODE_DIR"
