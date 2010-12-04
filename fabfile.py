@@ -4,7 +4,7 @@ from fabric.api import env, local, put, cd, run, sudo
 from fabric import colors
 
 # NOTE Add host names here so that you do not have to specify it every time on the command line
-# See http://docs.fabfile.org/usage/execution.html#how-host-lists-are-constructed
+# See http://docs.fabfile.org/0.9.3/usage/execution.html#how-host-lists-are-constructed
 # example: env.hosts.extend(['user@server1:port', 'user@server2:port']) # where port is the SSH port
 env.hosts.extend([])
 
