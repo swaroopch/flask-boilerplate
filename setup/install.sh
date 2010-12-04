@@ -171,6 +171,10 @@ then
     sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{HOME}/$HOME_ESCAPED/g" "$APP_NAME.wsgi" || critical "Could not fill $APP_NAME.wsgi"
 fi
 
+info "Updating the fabfile"
+cd "$SITE_CODE_DIR"
+sed -i -e "s/{SITE_NAME}/$SITE_NAME/g"  "fabfile.py" || critical "Could not fill fabfile.py"
+
 info "Checking static directory symlink in public folder"
 if [[ ! -L "$SITE_PUBLIC_DIR/static" ]]
 then
@@ -216,5 +220,6 @@ git co develop
 info "DONE"
 
 info "Start adding your actual website code to $SITE_CODE_DIR/$APP_NAME/controllers/frontend.py and see the changes live on $SITE_NAME !"
+info "You can 'git clone' the repo from $SITE_CODE_DIR/$APP_NAME to your local box, make changes, and then run 'fab deploy' to update the site!"
 #set +x
 
