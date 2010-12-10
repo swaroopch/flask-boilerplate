@@ -32,3 +32,13 @@ def laptop_to_server():
     print(colors.magenta('Success! The server has been updated.'))
 
 
+def test():
+    '''Run the test suite'''
+    local('env TEST=yes python tests.py', capture=False)
+
+
+def server():
+    '''Run the dev server'''
+    local('env DEV=yes python runserver.py', capture=False)
+
+
