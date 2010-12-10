@@ -4,7 +4,7 @@ Flask Boilerplate Project
 Introduction
 ------------
 
-I want to be able to quickly whip up websites with all my favorite settings and customizations. So I created this boilerplate project based on the `Flask <http://flask.pocoo.org/>`_ microwebframework.
+I wanted a quick way to create websites with all my favorite settings and customizations. So I created this boilerplate project based on the `Flask <http://flask.pocoo.org/>`_ microwebframework.
 
 Why is this useful? Because:
 
@@ -31,7 +31,9 @@ The installation script works specifically with Ubuntu Linux, Apache, mod_wsgi o
 
 Currently, the install script assumes that you are already on the target machine w.r.t. both the creation of the git project as well as the deployment.
 
-In the future, we could switch over to deployment via `Fabric <http://fabfile.org/>`_ or even deploy our app in an AppEngine-esque manner using `Silver Lining <http://cloudsilverlining.org/#what-does-it-do>`_.
+We are using `Fabric <http://fabfile.org/>`_ to deploy new code to the server.
+
+In the future, we may even deploy our app in an AppEngine-esque manner using `Silver Lining <http://cloudsilverlining.org/#what-does-it-do>`_.
 
 UI : HTML5 Boilerplate + 960 Grid System
 ----------------------------------------

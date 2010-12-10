@@ -13,7 +13,7 @@ import platform
 from fabric.api import hosts, local, sudo
 from fabric import colors
 
-def transfer_files(src, dst):
+def _transfer_files(src, dst):
     assert os.getenv('SSH_AUTH_SOCK') is not None # Ensure ssh-agent is running
     assert src.endswith('/')
     assert not dst.endswith('/')
@@ -22,12 +22,12 @@ def transfer_files(src, dst):
 
 ## TODO This is only an example. Change this according to your specific servers setup.
 @hosts('domain.com')
-def laptop_to_server():
+def deploy():
     '''Deploys the code from the laptop to the server'''
     assert platform.system() == 'Darwin' # Ensures that I run this only on the laptop (Darwin == Mac OS X)
     local_dir = '/Users/swaroop/code/domain.com/'
     remote_dir = 'domain.com:/home/swaroop/web/domain.com/private/domain.com'
-    transfer_files(local_dir, remote_dir)
+    _transfer_files(local_dir, remote_dir)
     sudo('apache2ctl graceful')
     print(colors.magenta('Success! The server has been updated.'))
 
