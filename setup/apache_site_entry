@@ -25,9 +25,9 @@
 
     DocumentRoot {HOME}/web/{SITE_NAME}/public
 
-    ErrorLog "|/usr/sbin/cronolog {HOME}/web/{SITE_NAME}/log/{APP_NAME}-%Y%m%d.error.log"
+    ErrorLog "|/usr/bin/cronolog {HOME}/web/{SITE_NAME}/log/{APP_NAME}-%Y%m%d.error.log"
     LogLevel warn
-    CustomLog "|/usr/sbin/cronolog {HOME}/web/{SITE_NAME}/log/{APP_NAME}-%Y%m%d.access.log" combined
+    CustomLog "|/usr/bin/cronolog {HOME}/web/{SITE_NAME}/log/{APP_NAME}-%Y%m%d.access.log" combined
 
 </VirtualHost>
 
