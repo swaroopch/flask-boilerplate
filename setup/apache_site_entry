@@ -12,8 +12,8 @@
     WSGIScriptAlias / {HOME}/web/{SITE_NAME}/private/{SITE_NAME}/setup/{APP_NAME}.wsgi
 
     <Directory {HOME}/web/{SITE_NAME}/private/{SITE_NAME}>
-        # Change this to Off when you go into "We're launching" mode.
-        WSGIScriptReloading On
+        # Change this to On in development mode
+        WSGIScriptReloading Off
 
         Order deny,allow
         Allow from all
