@@ -182,7 +182,7 @@ APACHE_SITE_CONFIG="/etc/apache2/sites-available/$SITE_NAME"
 if [[ ! -f $APACHE_SITE_CONFIG ]]
 then
     cp apache_site_entry $SITE_NAME
-    sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{HOME}/$HOME_ESCAPED/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{ADMIN_EMAIL}/$ADMIN_EMAIL/g" $SITE_NAME || critical "Could not fill apache config file"
+    sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{HOME}/$HOME_ESCAPED/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{ADMIN_EMAIL}/$ADMIN_EMAIL/g" -e "s/{USER}/$USER/g" $SITE_NAME || critical "Could not fill apache config file"
     sudo cp $SITE_NAME $APACHE_SITE_CONFIG || critical "Could not copy apache config file to apache sites-available directory"
     sudo /usr/sbin/apache2ctl configtest || critical "Apache config file check failed"
     sudo a2ensite $SITE_NAME || critical "Could not enable $SITE_NAME site"

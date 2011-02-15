@@ -3,6 +3,10 @@
     ServerAlias www.{SITE_NAME}
     ServerAdmin {ADMIN_EMAIL}
 
+    # Because of these lines, errors will go into the vhost-specific ErrorLog file.
+    WSGIDaemonProcess {SITE_NAME} user={USER} group={USER} processes=2 threads=25
+    WSGIProcessGroup {SITE_NAME}
+
     Alias /static {HOME}/web/{SITE_NAME}/public/static
     <Directory {HOME}/web/{SITE_NAME}/public>
         Order allow,deny
