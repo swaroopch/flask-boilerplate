@@ -21,11 +21,9 @@
 
     DocumentRoot {HOME}/web/{SITE_NAME}/public
 
-    # FIXME Ideally, should have been {HOME}/web/{SITE_NAME}/log/error.log but not able to figure out the file permissions
-    ErrorLog /tmp/{SITE_NAME}_error.log
+    ErrorLog "|/usr/sbin/cronolog {HOME}/web/{SITE_NAME}/log/{APP_NAME}-%Y%m%d.error.log"
     LogLevel warn
-    # FIXME Ideally, should have been {HOME}/web/{SITE_NAME}/log/access.log but not able to figure out the file permissions
-    CustomLog /tmp/{SITE_NAME}_access.log combined
+    CustomLog "|/usr/sbin/cronolog {HOME}/web/{SITE_NAME}/log/{APP_NAME}-%Y%m%d.access.log" combined
 
 </VirtualHost>
 

@@ -70,11 +70,11 @@ function critical
 # /home/foo -> \/home\/foo ... so that sed does not get confused.
 HOME_ESCAPED=${HOME//\//\\/}
 
-function install_apache_package
+function install_apt_package
 {
     name=$1
     shift
-    [[ -z "$name" ]] && critical "Code Error: Called install_apache_package without a name"
+    [[ -z "$name" ]] && critical "Code Error: Called install_apt_package without a name"
 
     [[ -z $(dpkg -l | fgrep -i $name) ]] && ( sudo apt-get install $name || critical "Could not apt-get $name package" )
 }
@@ -172,6 +172,9 @@ if [[ ! -L "$SITE_PUBLIC_DIR/static" ]]
 then
     ln -s "$SITE_CODE_DIR/$APP_NAME/static" "$SITE_PUBLIC_DIR/static" || critical "Could not symlink static folder to public"
 fi
+
+info "Installing cronolog for use with Apache"
+install_apt_package cronolog
 
 info "Adding Apache site configuration"
 cd "$SITE_CODE_DIR/setup"
