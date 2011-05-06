@@ -1,0 +1,50 @@
+h1. Flask Boilerplate Project
+
+h2. Introduction
+
+I wanted a quick way to create websites with all my favorite dev settings and customizations. So I created this boilerplate project based on the "Flask":http://flask.pocoo.org (Python) microwebframework.
+
+Why is Flask-Boilerplate useful? Because you get:
+
+# Cutting-edge components, good defaults, HTML5 goodness, etc.
+# New Project script - sets up everything for you, including Apache mod_wsgi deployment!
+
+h2. Get Started
+
+    git clone git://github.com/swaroopch/flask-boilerplate.git mynewapp
+    cd mynewapp
+    pip install Fabric
+    fab code_init:mynewapp.com
+    # Write your code in @flask_application/controllers/frontend.py@
+    fab serve
+
+When you're ready to deploy your code to a server:
+
+    fab server_init # once per server
+    fab deploy
+
+h2. Modular
+
+By default, it uses "packages and modules":http://flask.pocoo.org/docs/patterns/packages/ to make it very simple to split up the controllers (and models) into logical groups in separate files, rather than using a monolithic file which contains everything.
+
+h2. Server
+
+The installation script works specifically with Ubuntu Linux, Apache, mod_wsgi only.
+
+Currently, the install script assumes that you are already on the target machine w.r.t. both the creation of the git project as well as the deployment.
+
+We are using "Fabric":http://fabfile.org/ to deploy new code to the server.
+
+In the future, we may even deploy our app in an AppEngine-esque manner using "Silver Lining":http://cloudsilverlining.org/#what-does-it-do.
+
+h2. UI : HTML5 Boilerplate + 960 Grid System
+
+It uses "HTML5 Boilerplate code":http://html5boilerplate.com/ for the UI. This makes the frontend future-ready _and_ compatible all the way back to IE6. Don't forget to "watch the video":http://net.tutsplus.com/tutorials/html-css-techniques/the-official-guide-to-html5-boilerplate/.
+
+It uses "960 Grid System":http://960.gs/ for the layout of your pages.
+
+h2. Also See
+
+* API wrapper like "simpleapi":http://simpleapi.de/
+* "Mobile user agent detection":http://pypi.python.org/pypi/mobile.sniffer to redirect users to a mobile version of the website that uses the "Mobile HTML5 Boilerplate":https://github.com/shichuan/mobile-html5-boilerplate
+

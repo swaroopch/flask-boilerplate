@@ -76,7 +76,7 @@ def test():
     local('env TEST=yes python tests.py', capture=False)
 
 
-def server():
+def serve():
     '''Run the dev server'''
     local('env DEV=yes python runserver.py', capture=False)
 
