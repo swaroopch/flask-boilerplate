@@ -81,12 +81,11 @@ function install_apt_package
 
 ## Environment ##
 
-script_path=`readlink -f $0`
-BOILERPLATE=`readlink -f $(dirname $script_path)/..`
+SITE_CODE_DIR=$PWD
 
 ## Assumptions ##
 
-[[ -f "$BOILERPLATE/$APP_NAME/__init__.py" ]] || critical "$BOILERPLATE/$APP_NAME/__init__.py is missing"
+[[ -f "$SITE_CODE_DIR/$APP_NAME/__init__.py" ]] || critical "$SITE_CODE_DIR/$APP_NAME/__init__.py is missing"
 
 SITE_TOP_DIR="$HOME/web/$SITE_NAME"
 
@@ -128,44 +127,13 @@ then
     easy_install pip
 fi
 
-info "Cloning flask_boilerplate repository"
-git clone $BOILERPLATE $SITE_CODE_DIR || critical "Could not clone $BOILERPLATE git repository"
-cd $SITE_CODE_DIR
-
 info "Installing essential Apache build packages and Python library dependencies"
 
 # Flask
-pip install Flask Flask-Assets cssmin || critical "Could not download/install Flask module"
+pip install Flask Flask-Assets cssmin Flask-WTF Flask-Script Flask-Mail Flask-Cache || critical "Could not install Flask and dependencies"
 
 # Fabric
 pip install Fabric
-
-cd "$SITE_CODE_DIR/$APP_NAME"
-
-info "Updating config file"
-sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" config.py
-
-info "Updating homepage template"
-sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" templates/index.html
-
-info "Generating secret key"
-SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(-_=+)") for i in range(50)])'`
-sed -i -e "s/{SECRET_KEY}/$SECRET_KEY/g" -e "s/{SITE_NAME}/$SITE_NAME/g" "config.py" || critical "Could not fill $APP_NAME/config.py"
-
-cd "$SITE_CODE_DIR/setup"
-
-# WSGI file
-# http://flask.pocoo.org/docs/deploying/mod_wsgi/
-info "Generating WSGI file"
-if [[ ! -f "$APP_NAME.wsgi" ]]
-then
-    cp run.wsgi "$APP_NAME.wsgi"
-    sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{HOME}/$HOME_ESCAPED/g" "$APP_NAME.wsgi" || critical "Could not fill $APP_NAME.wsgi"
-fi
-
-info "Updating the fabfile"
-cd "$SITE_CODE_DIR"
-sed -i -e "s/{SITE_NAME}/$SITE_NAME/g"  "fabfile.py" || critical "Could not fill fabfile.py"
 
 info "Checking static directory symlink in public folder"
 if [[ ! -L "$SITE_PUBLIC_DIR/static" ]]
@@ -178,40 +146,17 @@ cd "$SITE_CODE_DIR/setup"
 APACHE_SITE_CONFIG="/etc/apache2/sites-available/$SITE_NAME"
 if [[ ! -f $APACHE_SITE_CONFIG ]]
 then
-    cp apache_site_entry $SITE_NAME
-    sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{HOME}/$HOME_ESCAPED/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{ADMIN_EMAIL}/$ADMIN_EMAIL/g" -e "s/{USER}/$USER/g" $SITE_NAME || critical "Could not fill apache config file"
-    sudo cp $SITE_NAME $APACHE_SITE_CONFIG || critical "Could not copy apache config file to apache sites-available directory"
+    sudo cp apache_site_entry $APACHE_SITE_CONFIG || critical "Could not copy apache config file to apache sites-available directory"
     sudo /usr/sbin/apache2ctl configtest || critical "Apache config file check failed"
     sudo a2ensite $SITE_NAME || critical "Could not enable $SITE_NAME site"
     sudo a2enmod headers # Needed for some features of the .htaccess provided by the HTML5-boilerplate
     sudo /etc/init.d/apache2 restart || critical "Apache restart failed"
 fi
 
-info "Setting up the new git repo"
-cd "$SITE_CODE_DIR"
-sed -i -e "s/origin/flask_boilerplate/g" ".git/config"
-git add .
-
-cd "$SITE_CODE_DIR/setup"
-git rm run.wsgi
-git rm install.bash
-
-cd "$SITE_CODE_DIR"
-git rm README.rst
-git rm LICENSE.txt
-
-git commit -m "Initial commit for site $SITE_NAME"
-
 info "Fetching submodules"
 bash $SITE_CODE_DIR/setup/copy_html5.bash $SITE_CODE_DIR
 
-info "Switching to develop branch"
 cd "$SITE_CODE_DIR"
-git co develop
-
 info "DONE"
 
-info "Start adding your actual website code to $SITE_CODE_DIR/$APP_NAME/controllers/frontend.py and see the changes live on $SITE_NAME !"
-info "You can 'git clone' the repo from $SITE_CODE_DIR/$APP_NAME to your local box, make changes, and then run 'fab deploy' to update the site!"
 #set +x
-

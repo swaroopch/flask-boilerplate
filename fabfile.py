@@ -8,7 +8,7 @@ References:
 '''
 
 import platform
-assert platform.python_version_tuple() > (2,6)
+assert (2,6) < platform.python_version_tuple() < (3,0)
 
 import os
 import datetime
@@ -29,6 +29,20 @@ def _transfer_files(src, dst):
     if dst.endswith('/'):
         dst = dst[:-1]
     local('rsync -avh --delete-before --copy-unsafe-links -e ssh {0} {1}'.format(src, dst), capture=False)
+
+
+def code_setup(domain_name):
+    '''Initialize with this domain name.'''
+    local('bash setup/code_setup.bash {0}'.format(domain_name))
+
+
+@roles('deploy')
+def server_setup():
+    '''Setup the server environment.'''
+    local_dir = os.getcwd()
+    remote_dir = os.path.join('/home', os.getlogin(), 'web', SITE_NAME, 'private', SITE_NAME)
+    _transfer_files(local_dir, env.host_string + ':' + remote_dir)
+    sudo('cd {0} && bash setup/server_setup.bash'.format(remote_dir))
 
 
 @roles('deploy')
@@ -80,12 +94,17 @@ def serve():
     '''Run the dev server'''
     local('env DEV=yes python runserver.py', capture=False)
 
+
+def apache():
+    '''Install the Apache virtualhost config file.'''
+    pass
+
 def update_html5():
     '''Update HTML5-Boilerplate.'''
-    local("git stash")
     local("cd html5 && git pull origin master")
     local("bash setup/copy_html5.bash .")
+    puts(colors.magenta("Showing git status, if there are no updates, then the subsequent commit will fail:"))
+    local("git status")
+    puts(colors.magenta("Committing..."))
     local("git commit -a -m 'Updated HTML5'")
-    local("git stash pop")
     puts(colors.magenta("Updated HTML5-Boilerplate"))
-
