@@ -22,23 +22,14 @@
   <link rel="shortcut icon" href="/static/favicon.ico">
   <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
 
+  {% assets filters="cssmin", output="gen/packed.css", "css/style.css", "css/text.css", "css/960.css", "css/site.css" %}
+      <link rel="stylesheet" href="{{ ASSET_URL }}"/>
+  {% endassets %}
 
-  <!-- CSS : implied media="all" -->
-  <link rel="stylesheet" href="/static/css/style.css?v=1">
-
-  <!-- 960 Grid System -->
-  <link rel="stylesheet" href="/static/css/text.css">
-  <link rel="stylesheet" href="/static/css/960.css">
-
-  <!-- Custom styling -->
-  <link rel="stylesheet" href="/static/css/custom.css">
-
-  <!-- For the less-enabled mobile browsers like Opera Mini -->
-  <link rel="stylesheet" media="handheld" href="/static/css/handheld.css?v=1">
-
-
+  {#
   <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
   <script src="/static/js/modernizr-1.5.min.js"></script>
+  #}
 
 </head>
 

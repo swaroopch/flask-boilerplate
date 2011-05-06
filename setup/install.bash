@@ -135,7 +135,7 @@ cd $SITE_CODE_DIR
 info "Installing essential Apache build packages and Python library dependencies"
 
 # Flask
-pip install Flask || critical "Could not download/install Flask module"
+pip install Flask Flask-Assets cssmin || critical "Could not download/install Flask module"
 
 # Fabric
 pip install Fabric
