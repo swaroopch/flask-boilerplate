@@ -80,3 +80,12 @@ def serve():
     '''Run the dev server'''
     local('env DEV=yes python runserver.py', capture=False)
 
+def update_html5():
+    '''Update HTML5-Boilerplate.'''
+    local("git stash")
+    local("cd html5 && git pull origin master")
+    local("bash setup/copy_html5.bash .")
+    local("git commit -a -m 'Updated HTML5'")
+    local("git stash pop")
+    puts(colors.magenta("Updated HTML5-Boilerplate"))
+
