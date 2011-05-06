@@ -173,9 +173,6 @@ then
     ln -s "$SITE_CODE_DIR/$APP_NAME/static" "$SITE_PUBLIC_DIR/static" || critical "Could not symlink static folder to public"
 fi
 
-info "Installing cronolog for use with Apache"
-install_apt_package cronolog
-
 info "Adding Apache site configuration"
 cd "$SITE_CODE_DIR/setup"
 APACHE_SITE_CONFIG="/etc/apache2/sites-available/$SITE_NAME"
