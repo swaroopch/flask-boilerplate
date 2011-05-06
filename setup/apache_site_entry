@@ -31,6 +31,8 @@
     # NOTE You can run $(sort -s -k 2 -n -r time.*.log) to get the slow pages
     CustomLog "|/usr/bin/cronolog {HOME}/web/{SITE_NAME}/log/time.%Y%m%d.log" "%h %D %r"
 
+    Alias /favicon.ico {HOME}/web/{SITE_NAME}/public/static/favicon.ico
+    Alias /apple-touch-icon.png {HOME}/web/{SITE_NAME}/public/static/apple-touch-icon.png
 
 </VirtualHost>
 

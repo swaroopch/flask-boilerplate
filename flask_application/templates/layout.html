@@ -18,10 +18,6 @@
   <!--  Mobile viewport optimized: j.mp/bplateviewport -->
   <meta name="viewport" content="width=device-width; initial-scale=1.0">
 
-  <!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
-  <link rel="shortcut icon" href="/static/favicon.ico">
-  <link rel="apple-touch-icon" href="/static/apple-touch-icon.png">
-
   {% assets filters="cssmin", output="gen/packed.css", "css/style.css", "css/text.css", "css/960.css", "css/site.css" %}
       <link rel="stylesheet" href="{{ ASSET_URL }}"/>
   {% endassets %}
