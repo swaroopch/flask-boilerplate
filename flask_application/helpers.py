@@ -2,6 +2,24 @@
 
 import datetime
 import math
+from functools import wraps
+
+# Caching
+def cached(app, timeout=5 * 60, key='view/%s'):
+    '''http://flask.pocoo.org/docs/patterns/viewdecorators/#caching-decorator'''
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            cache_key = key % request.path
+            rv = app.cache.get(cache_key)
+            if rv is not None:
+                return rv
+            rv = f(*args, **kwargs)
+            app.cache.set(cache_key, rv, timeout=timeout)
+            return rv
+        return decorated_function
+    return decorator
+
 
 # Custom Template Filters
 def datetimeformat(value):
