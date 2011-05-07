@@ -45,7 +45,7 @@ def server_setup():
     remote_dir = os.path.join('/home', os.getlogin(), 'web', SITE_NAME, 'private', SITE_NAME)
     run('mkdir -p {0}'.format(remote_dir))
     _transfer_files(local_dir, env.host + ':' + remote_dir, ssh_port=env.port)
-    sudo('cd {0} && bash setup/server_setup.bash {1}'.format(remote_dir, SITE_NAME))
+    run('cd {0} && bash setup/server_setup.bash {1}'.format(remote_dir, SITE_NAME))
 
 
 def deploy():
