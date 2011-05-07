@@ -45,8 +45,7 @@ def server_setup():
     remote_dir = os.path.join('/home', os.getlogin(), 'web', SITE_NAME, 'private', SITE_NAME)
     run('mkdir -p {0}'.format(remote_dir))
     _transfer_files(local_dir, env.host + ':' + remote_dir, ssh_port=env.port)
-    with cd(remote_dir):
-        run('bash setup/server_setup.bash {1}'.format(SITE_NAME))
+    run('cd {0} && bash setup/server_setup.bash {1}'.format(remote_dir, SITE_NAME))
 
 
 def deploy():
@@ -104,8 +103,7 @@ def apache():
 
 def update_html5():
     '''Update HTML5-Boilerplate.'''
-    with cd("html5"):
-        local("git pull origin master")
+    local("cd html5 && git pull origin master")
     local("bash setup/copy_html5.bash .")
     puts(colors.magenta("Showing git status, if there are no updates, then the subsequent commit will fail:"))
     local("git status")
