@@ -22,7 +22,8 @@ from fabric.utils import puts, warn
 SITE_NAME = 'test.com' # '{SITE_NAME}'
 
 
-def _transfer_files(src, dst, ssh_port=22):
+def _transfer_files(src, dst, ssh_port=None):
+    ssh_port = ssh_port or 22
     assert os.getenv('SSH_AUTH_SOCK') is not None # Ensure ssh-agent is running
     if not src.endswith('/'):
         src = src + '/'
