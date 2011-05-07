@@ -134,6 +134,9 @@ pip install Flask Flask-Assets cssmin Flask-WTF Flask-Script Flask-Mail Flask-Ca
 # Fabric
 pip install Fabric
 
+# Memcache
+pip install python-memcached
+
 info "Checking static directory symlink in public folder"
 if [[ ! -L "$SITE_PUBLIC_DIR/static" ]]
 then

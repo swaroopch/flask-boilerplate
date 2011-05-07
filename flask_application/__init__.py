@@ -32,7 +32,7 @@ if not app.debug and not app.testing:
                         'localhost',
                         os.getenv('USER'),
                         app.config['SYS_ADMINS'],
-                        '{0} error'.format(app.config['SITE_URL'],
+                        '{0} error'.format(app.config['SITE_NAME'],
                         ),
                     )
     mail_handler.setFormatter(logging.Formatter('''
