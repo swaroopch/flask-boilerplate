@@ -25,11 +25,11 @@
 
     DocumentRoot {HOME}/web/{SITE_NAME}/public
 
-    ErrorLog "{HOME}/web/{SITE_NAME}/log/error.%Y%m%d.log"
+    ErrorLog "{HOME}/web/{SITE_NAME}/log/error.log"
     LogLevel warn
-    CustomLog "{HOME}/web/{SITE_NAME}/log/access.%Y%m%d.log" combined
+    CustomLog "{HOME}/web/{SITE_NAME}/log/access.log" combined
     # NOTE You can run $(sort -s -k 2 -n -r time.*.log) to get the slow pages
-    CustomLog "{HOME}/web/{SITE_NAME}/log/time.%Y%m%d.log" "%h %D %r"
+    CustomLog "{HOME}/web/{SITE_NAME}/log/time.log" "%h %D %r"
 
     Alias /favicon.ico {HOME}/web/{SITE_NAME}/public/static/favicon.ico
     Alias /apple-touch-icon.png {HOME}/web/{SITE_NAME}/public/static/apple-touch-icon.png
