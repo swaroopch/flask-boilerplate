@@ -11,17 +11,17 @@ Why is Flask-Boilerplate useful? Because you get:
 
 h2. Get Started
 
-    git clone git://github.com/swaroopch/flask-boilerplate.git mynewapp
-    cd mynewapp
-    pip install Fabric
-    fab code_setup:mynewapp.com
-    # Write your code in @flask_application/controllers/frontend.py@
-    fab serve
+@git clone git://github.com/swaroopch/flask-boilerplate.git mynewapp@
+@cd mynewapp@
+@pip install Fabric@
+@fab code_setup:mynewapp.com@
+Write your code in @flask_application/controllers/frontend.py@
+@fab serve@
 
 When you're ready to deploy your code to a server:
 
-    fab server_setup # once per server
-    fab deploy
+@fab server_setup@ # once per server
+@fab deploy@
 
 h2. Modular
 
