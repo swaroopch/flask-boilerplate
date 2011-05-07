@@ -5,6 +5,8 @@
 class Config(object):
     SECRET_KEY = '{SECRET_KEY}'
     SITE_NAME = '{SITE_NAME}'
+    MEMCACHED_SERVERS = ['localhost:11211']
+    SYS_ADMINS = ['foo@example.com']
 
 class ProductionConfig(Config):
     DEBUG = False
