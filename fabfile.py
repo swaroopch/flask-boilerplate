@@ -19,16 +19,16 @@ from fabric import colors
 from fabric.utils import puts, warn
 
 
-SITE_NAME = '{SITE_NAME}'
+SITE_NAME = 'test.com' # '{SITE_NAME}'
 
 
-def _transfer_files(src, dst):
+def _transfer_files(src, dst, ssh_port=22):
     assert os.getenv('SSH_AUTH_SOCK') is not None # Ensure ssh-agent is running
     if not src.endswith('/'):
         src = src + '/'
     if dst.endswith('/'):
         dst = dst[:-1]
-    local('rsync -avh --delete-before --copy-unsafe-links -e ssh {0} {1}'.format(src, dst), capture=False)
+    local('rsync -avh --delete-before --copy-unsafe-links -e "ssh -p {0}" {1} {2}'.format(ssh_port, src, dst), capture=False)
 
 
 def code_setup(domain_name):
@@ -36,16 +36,17 @@ def code_setup(domain_name):
     local('bash setup/code_setup.bash {0}'.format(domain_name))
 
 
-@roles('deploy')
 def server_setup():
     '''Setup the server environment.'''
+    global SITE_NAME
+
     local_dir = os.getcwd()
     remote_dir = os.path.join('/home', os.getlogin(), 'web', SITE_NAME, 'private', SITE_NAME)
-    _transfer_files(local_dir, env.host_string + ':' + remote_dir)
-    sudo('cd {0} && bash setup/server_setup.bash'.format(remote_dir))
+    run('mkdir -p {0}'.format(remote_dir))
+    _transfer_files(local_dir, env.host + ':' + remote_dir, ssh_port=env.port)
+    sudo('cd {0} && bash setup/server_setup.bash {1}'.format(remote_dir, SITE_NAME))
 
 
-@roles('deploy')
 def deploy():
     '''Sync code from here to the servers'''
     global env
@@ -55,7 +56,7 @@ def deploy():
     # Linux has HOME=/home/swaroop and therefore cannot use the same dirname.
     local_dir = os.path.join(os.getenv('HOME'), 'web', SITE_NAME, 'private', SITE_NAME)
     remote_dir = os.path.join('/home', os.getlogin(), 'web', SITE_NAME, 'private', SITE_NAME)
-    _transfer_files(local_dir, env.host_string + ':' + remote_dir)
+    _transfer_files(local_dir, env.host + ':' + remote_dir, ssh_port=env.port)
     sudo('apache2ctl graceful')
     try:
         urllib2.urlopen('http://' + env.host_string)

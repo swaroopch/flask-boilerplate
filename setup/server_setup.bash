@@ -89,7 +89,6 @@ SITE_CODE_DIR=$PWD
 
 SITE_TOP_DIR="$HOME/web/$SITE_NAME"
 
-[[ ! -d "$SITE_TOP_DIR" ]] || critical "$SITE_TOP_DIR already present"
 mkdir -p $SITE_TOP_DIR/{public,private,log,backup}
 
 SITE_CODE_DIR="$SITE_TOP_DIR/private/$SITE_NAME"
