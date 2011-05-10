@@ -2,14 +2,14 @@ h1. Flask Boilerplate Project
 
 h2. Introduction
 
-I wanted a quick way to create websites with all my favorite dev settings and customizations. So I created this boilerplate project based on the "Flask":http://flask.pocoo.org (Python) microwebframework.
+I wanted a super-quick way to create new websites with all my favorite code settings and customizations. So I created this boilerplate project based on the "Flask (Python) microwebframework":http://flask.pocoo.org
 
-Why is Flask-Boilerplate useful? Because you get:
+Why Flask-Boilerplate? Because you get:
 
-# Good code defaults. For example, it uses "packages and modules":http://flask.pocoo.org/docs/patterns/packages/ by default so that controllers (and models) are split into logical groups in separate files, rather than using a monolithic file which contains everything.
-# New Project script - sets up everything for you, including Apache mod_wsgi deployment!
-#* NOTE: The installation script works specifically with Ubuntu Linux, Apache, mod_wsgi only.
+# Good code defaults. For example, it uses "packages and modules":http://flask.pocoo.org/docs/patterns/packages/ by default so that controllers (and models) are split into logical groups in separate files.
+# New Project script - sets up everything for you, including generating the secret key (for secure cookies), etc.
 # Deploy to a Ubuntu server with a single command (sets up everything for you, including @virtualenv@, etc.)
+#* NOTE: The installation script works specifically for Ubuntu Linux, Apache, mod_wsgi only.
 # jQuery - no webapp is complete without it
 # Grid system, via the "960 Grid System":http://960.gs/ - so that you can get started with your UI quickly
 # HTML5 goodness, via "HTML5 Boilerplate":http://html5boilerplate.com - for a good base UI
