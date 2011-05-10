@@ -30,5 +30,5 @@ When you're ready to deploy your code to a server:
 
 h2. Also See
 
+* "Mobile browser detection":https://github.com/shichuan/mobile-html5-boilerplate/wiki/Server-side-redirection-script to redirect users to a version of the website that uses the "Mobile HTML5 Boilerplate":http://html5boilerplate.com/mobile/
 * API wrapper like "simpleapi":https://github.com/flosch/simpleapi
-* "Mobile user agent detection":http://pypi.python.org/pypi/mobile.sniffer to redirect users to a mobile version of the website that uses the "Mobile HTML5 Boilerplate":https://github.com/shichuan/mobile-html5-boilerplate
