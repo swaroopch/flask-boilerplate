@@ -65,6 +65,7 @@ SITE_CODE_DIR=$PWD
 ## Main ##
 
 # Flask, assets, forms, scripts, email, caching, etc.
+info "Installing Python packages"
 pip install Flask Flask-Assets cssmin Flask-WTF Flask-Script Flask-Mail Flask-Cache || critical "Could not install Flask and dependencies"
 # Sitemap - NOTE This installation actually errors out for readme, but code does get installed.
 #pip install "http://www.florian-diesch.de/software/apesmit/dist/apesmit-0.01.tar.gz"
@@ -106,5 +107,8 @@ git commit -a -m "Initial commit for site $SITE_NAME"
 
 info "Fetching submodules"
 bash $SITE_CODE_DIR/setup/copy_html5.bash $SITE_CODE_DIR
+
+info "Setting up output directory for Flask-Assets"
+mkdir -p $SITE_CODE_DIR/$APP_NAME/static/gen/
 
 info "DONE"
