@@ -137,6 +137,10 @@ pip install Fabric
 # Memcache
 pip install python-memcached
 
+# Custom stuff
+info "Installing custom dependencies"
+bash "$SITE_CODE_DIR/setup/custom_setup.bash"
+
 info "Checking static directory symlink in public folder"
 if [[ ! -L "$SITE_PUBLIC_DIR/static" ]]
 then

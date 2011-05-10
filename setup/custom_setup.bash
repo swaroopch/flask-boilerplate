@@ -15,8 +15,7 @@ function install_apache_package
     [[ -z $(dpkg -l | fgrep -i $name) ]] && ( sudo aptitude install $name || die "Could not apt-get $name package" )
 }
 
-script_path=`readlink -f $0`
-SITE_CODE_DIR=`readlink -f $(dirname $script_path)/..`
+SITE_CODE_DIR=$PWD
 
 ## main ##
 
