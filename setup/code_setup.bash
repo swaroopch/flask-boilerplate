@@ -101,8 +101,8 @@ cd "$SITE_CODE_DIR/setup"
 sed -i "" -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{HOME}/$LINUX_HOME_ESCAPED/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{ADMIN_EMAIL}/$ADMIN_EMAIL/g" -e "s/{USER}/$USER/g" apache_site_entry || critical "Could not fill apache config file"
 
 info "Removing LICENSE and README files"
-git rm LICENSE.txt
-git rm README.textile
+git rm $SITE_CODE_DIR/LICENSE.txt
+git rm $SITE_CODE_DIR/README.textile
 
 info "Setting up the new git repo"
 cd "$SITE_CODE_DIR"
