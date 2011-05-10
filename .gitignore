@@ -1,2 +1,3 @@
 *.pyc
 log/*.log
+flask_application/static/gen/*
