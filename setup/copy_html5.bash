@@ -1,15 +1,13 @@
 #!/usr/bin/env bash
 
-function die
-{
-    echo "$@"
-    exit 1
-}
+## Environment ##
 
 SITE_CODE_DIR=$1
 shift
 
-[[ -n "$SITE_CODE_DIR" ]] || die "Usage: $0 SITE_CODE_DIR"
+[[ -n "$SITE_CODE_DIR" ]] || exit 1
+
+source "$SITE_CODE_DIR/setup/bashutils.bash"
 
 APP_NAME="flask_application"
 HTML5_DIR="$SITE_CODE_DIR/html5"
@@ -17,7 +15,7 @@ STATIC_DIR="$SITE_CODE_DIR/$APP_NAME/static"
 TEMPLATE_DIR="$SITE_CODE_DIR/$APP_NAME/templates"
 PUBLIC_DIR="$SITE_CODE_DIR/../../public"
 
-## main ##
+## Main ##
 
 cd $SITE_CODE_DIR
 git submodule update --init --recursive

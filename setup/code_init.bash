@@ -1,11 +1,17 @@
 #!/bin/bash
 
+## Environment ##
+
+SITE_CODE_DIR=$PWD
+APP_NAME="flask_application"
+
+source "$SITE_CODE_DIR/setup/bashutils.bash"
+
 ## Check Python version ##
 
 if [[ $(python -c "import sys; print (2,6) <= sys.version_info < (3,0)") != "True" ]]
 then
-    echo "Need at least Python 2.6"
-    exit 1
+    critical "Need at least Python 2.6"
 fi
 
 ## Take website name as command line argument ##
@@ -15,67 +21,20 @@ shift
 
 if [[ -z "$SITE_NAME" ]]
 then
-    echo "Usage: $0 SITE_NAME"
-    exit 1
+    critical "Usage: $0 SITE_NAME"
 fi
 
 ADMIN_EMAIL="admin@$SITE_NAME"
 
-APP_NAME="flask_application"
-
-## Utilities ##
-
-# http://linuxtidbits.wordpress.com/2008/08/11/output-color-on-bash-scripts/
-txtred=$(tput setaf 1)
-txtgreen=$(tput setaf 2)
-txtyellow=$(tput setaf 3)
-txtreset=$(tput sgr0)
-txtunderline=$(tput sgr 0 1)
-
-common_prefix="! "
-
-function info
-{
-    echo "$txtgreen$common_prefix$@$txtreset"
-}
-
-function warning
-{
-    echo "$txtyellow$common_prefix$@$txtreset"
-}
-
-function critical
-{
-    echo "$txtunderline$txtred$common_prefix$@$txtreset"
-    exit 1
-}
-
 # /home/foo -> \/home\/foo ... so that sed does not get confused.
 LINUX_HOME="/home/$USER"
 LINUX_HOME_ESCAPED=${LINUX_HOME//\//\\/}
-
-## Environment ##
-
-SITE_CODE_DIR=$PWD
 
 ## Assumptions ##
 
 [[ -f "$SITE_CODE_DIR/$APP_NAME/__init__.py" ]] || critical "$SITE_CODE_DIR/$APP_NAME/__init__.py is missing"
 
 ## Main ##
-
-# Flask, assets, forms, scripts, email, caching, etc.
-info "Installing Python packages"
-pip install Flask Flask-Assets cssmin Flask-WTF Flask-Script Flask-Mail Flask-Cache || critical "Could not install Flask and dependencies"
-# Sitemap - NOTE This installation actually errors out for readme, but code does get installed.
-#pip install "http://www.florian-diesch.de/software/apesmit/dist/apesmit-0.01.tar.gz"
-
-# Custom dependencies
-info "Installing custom dependencies"
-bash "$SITE_CODE_DIR/setup/custom_setup.bash"
-
-info "NOTE This script assumes that you already have your system dependencies such as Memcache, MongoDB, etc. installed on your local machine already."
-info "NOTE The script will install system dependencies on the server when you do fab server_setup though."
 
 info "Domain name --> $SITE_NAME"
 
@@ -110,10 +69,5 @@ git rm $SITE_CODE_DIR/README.textile
 
 info "Setting up the new git repo"
 cd "$SITE_CODE_DIR"
-sed -i "" -e "s/origin/flask_boilerplate/g" ".git/config"
+#sed -i "" -e "s/origin/flask_boilerplate/g" ".git/config"
 git commit -a -m "Initial commit for site $SITE_NAME"
-
-info "Fetching submodules"
-bash $SITE_CODE_DIR/setup/copy_html5.bash $SITE_CODE_DIR
-
-info "DONE"

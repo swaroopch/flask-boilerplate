@@ -1,28 +1,28 @@
 #!/usr/bin/env bash
 
+## Environment ##
+
+SITE_CODE_DIR=$PWD
+APP_NAME="flask_application"
+
+source "$SITE_CODE_DIR/setup/bashutils.bash"
+
 ## Check Operating system ##
 
 # This script assumes Ubuntu directory structure.
 # (The directory structure is different for different Linux distributions.)
 
-function die_without_linux
-{
-    echo "This script works only with Ubuntu Linux and Bash."
-    exit 1
-}
-
-[[ "$OSTYPE" == "linux-gnu" ]]      || die_without_linux
-[[ $(which lsb_release) != "" ]]    || die_without_linux
-[[ $(lsb_release -i) =~ "Ubuntu" ]] || die_without_linux
-[[ ${SHELL} =~ "bash" ]]            || die_without_linux
-[[ "${BASH_VERSINFO[0]}" -ge "4" ]] || die_without_linux
+[[ "$OSTYPE" == "linux-gnu" ]]      || critical "This script works only with Ubuntu Linux and Bash."
+[[ $(which lsb_release) != "" ]]    || critical "This script works only with Ubuntu Linux and Bash."
+[[ $(lsb_release -i) =~ "Ubuntu" ]] || critical "This script works only with Ubuntu Linux and Bash."
+[[ ${SHELL} =~ "bash" ]]            || critical "This script works only with Ubuntu Linux and Bash."
+[[ "${BASH_VERSINFO[0]}" -ge "4" ]] || critical "This script works only with Ubuntu Linux and Bash."
 
 ## Check Python version ##
 
 if [[ $(python -c "import sys; print (2,6) <= sys.version_info < (3,0)") != "True" ]]
 then
-    echo "Need at least Python 2.6"
-    exit 1
+    critical "Need at least Python 2.6"
 fi
 
 ## Take website name as command line argument ##
@@ -32,43 +32,12 @@ shift
 
 if [[ -z "$SITE_NAME" ]]
 then
-    echo "Usage: $0 SITE_NAME"
-    exit 1
+    critical "Usage: $0 SITE_NAME"
 fi
 
 ADMIN_EMAIL="admin@$SITE_NAME"
 
-APP_NAME="flask_application"
-
 ## Utilities ##
-
-# http://linuxtidbits.wordpress.com/2008/08/11/output-color-on-bash-scripts/
-txtred=$(tput setaf 1)
-txtgreen=$(tput setaf 2)
-txtyellow=$(tput setaf 3)
-txtreset=$(tput sgr0)
-txtunderline=$(tput sgr 0 1)
-
-common_prefix="! "
-
-function info
-{
-    echo "$txtgreen$common_prefix$@$txtreset"
-}
-
-function warning
-{
-    echo "$txtyellow$common_prefix$@$txtreset"
-}
-
-function critical
-{
-    echo "$txtunderline$txtred$common_prefix$@$txtreset"
-    exit 1
-}
-
-# /home/foo -> \/home\/foo ... so that sed does not get confused.
-HOME_ESCAPED=${HOME//\//\\/}
 
 function install_apt_package
 {
@@ -78,10 +47,6 @@ function install_apt_package
 
     [[ -z $(dpkg -l | fgrep -i $name) ]] && ( sudo apt-get install $name || critical "Could not apt-get $name package" )
 }
-
-## Environment ##
-
-SITE_CODE_DIR=$PWD
 
 ## Assumptions ##
 
@@ -126,20 +91,8 @@ then
     easy_install pip
 fi
 
-info "Installing essential Apache build packages and Python library dependencies"
-
-# Flask
-pip install Flask Flask-Assets cssmin Flask-WTF Flask-Script Flask-Mail Flask-Cache || critical "Could not install Flask and dependencies"
-
-# Fabric
-pip install Fabric
-
-# Memcache
-pip install python-memcached
-
-# Custom stuff
-info "Installing custom dependencies"
-bash "$SITE_CODE_DIR/setup/custom_setup.bash"
+info "Installing essential Python library dependencies and other packages"
+bash "$SITE_CODE_DIR/setup/env_setup.bash"
 
 info "Checking static directory symlink in public folder"
 if [[ ! -L "$SITE_PUBLIC_DIR/static" ]]
@@ -158,11 +111,11 @@ then
     sudo a2enmod headers # Needed for some features of the .htaccess provided by the HTML5-boilerplate
     sudo /etc/init.d/apache2 restart || critical "Apache restart failed"
 fi
+cd "$SITE_CODE_DIR"
 
 info "Fetching submodules"
 bash $SITE_CODE_DIR/setup/copy_html5.bash $SITE_CODE_DIR
 
-cd "$SITE_CODE_DIR"
 info "DONE"
 
 #set +x

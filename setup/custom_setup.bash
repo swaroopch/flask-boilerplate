@@ -1,23 +1,17 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-function die
-{
-    echo "$@"
-    exit 1
-}
-
-function install_apache_package
-{
-    name=$1
-    shift
-    [[ -z "$name" ]] && die "Code Error: Called install_apache_package without a name"
-
-    [[ -z $(dpkg -l | fgrep -i $name) ]] && ( sudo aptitude install $name || die "Could not apt-get $name package" )
-}
+## Environment ##
 
 SITE_CODE_DIR=$PWD
+APP_NAME="flask_application"
 
-## main ##
+source "$SITE_CODE_DIR/setup/bashutils.bash"
+
+## Assumptions ##
+
+[[ -f "$SITE_CODE_DIR/$APP_NAME/__init__.py" ]] || critical "$SITE_CODE_DIR/$APP_NAME/__init__.py is missing"
+
+## Main ##
 
 # TODO Your code goes here
 

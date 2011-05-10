@@ -4,11 +4,11 @@
 Run 'fab --list' to see list of available commands.
 
 References:
-# http://docs.fabfile.org/0.9.3/usage/execution.html#how-host-lists-are-constructed
+# http://docs.fabfile.org/en/1.0.1/usage/execution.html#how-host-lists-are-constructed
 '''
 
 import platform
-assert (2,6) < platform.python_version_tuple() < (3,0)
+assert (2,6) <= platform.python_version_tuple() < (3,0)
 
 import os
 import datetime
@@ -32,9 +32,19 @@ def _transfer_files(src, dst, ssh_port=None):
     local('rsync -avh --delete-before --copy-unsafe-links -e "ssh -p {0}" {1} {2}'.format(ssh_port, src, dst), capture=False)
 
 
-def code_setup(domain_name):
+def code_init(domain_name):
     '''Initialize with this domain name.'''
-    local('bash setup/code_setup.bash {0}'.format(domain_name))
+    local('bash setup/code_init.bash {0}'.format(domain_name))
+
+
+def env_setup():
+    '''Initialize environment.'''
+    local('bash setup/env_setup.bash')
+
+
+def serve():
+    '''Run the dev server'''
+    local('env DEV=yes python runserver.py', capture=False)
 
 
 def server_setup():
@@ -91,15 +101,6 @@ def test():
     '''Run the test suite'''
     local('env TEST=yes python tests.py', capture=False)
 
-
-def serve():
-    '''Run the dev server'''
-    local('env DEV=yes python runserver.py', capture=False)
-
-
-def apache():
-    '''Install the Apache virtualhost config file.'''
-    pass
 
 def update_html5():
     '''Update HTML5-Boilerplate.'''
