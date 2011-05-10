@@ -112,7 +112,4 @@ git commit -a -m "Initial commit for site $SITE_NAME"
 info "Fetching submodules"
 bash $SITE_CODE_DIR/setup/copy_html5.bash $SITE_CODE_DIR
 
-info "Setting up output directory for Flask-Assets"
-mkdir -p $SITE_CODE_DIR/$APP_NAME/static/gen/
-
 info "DONE"
