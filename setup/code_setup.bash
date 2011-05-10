@@ -70,7 +70,7 @@ pip install Flask Flask-Assets cssmin Flask-WTF Flask-Script Flask-Mail Flask-Ca
 #pip install "http://www.florian-diesch.de/software/apesmit/dist/apesmit-0.01.tar.gz"
 
 info "NOTE This script assumes that you already have your system dependencies such as Memcache, MongoDB, etc. installed on your local machine already."
-info "NOTE The script will install system dependencies on the server when you do $\(fab server_init\) though."
+info "NOTE The script will install system dependencies on the server when you do fab server_setup though."
 
 info "Domain name --> $SITE_NAME"
 
