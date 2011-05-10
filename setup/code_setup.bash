@@ -82,7 +82,7 @@ info "Domain name --> $SITE_NAME"
 cd "$SITE_CODE_DIR/$APP_NAME"
 
 info "Generating secret key and updating config file"
-SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789@#$%^&*(-_=+)") for i in range(50)])'`
+SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789@#$%^*(-_=+)") for i in range(50)])'`
 sed -i "" -e "s/{SECRET_KEY}/$SECRET_KEY/g" -e "s/{SITE_NAME}/$SITE_NAME/g" "config.py" || critical "Could not fill $APP_NAME/config.py"
 
 cd "$SITE_CODE_DIR/setup"
