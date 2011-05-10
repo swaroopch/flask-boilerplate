@@ -42,6 +42,10 @@ def env_setup():
     local('bash setup/env_setup.bash')
 
 
+def console():
+    local('env DEV=yes python -i play.py', capture=False)
+
+
 def serve():
     '''Run the dev server'''
     local('env DEV=yes python runserver.py', capture=False)
