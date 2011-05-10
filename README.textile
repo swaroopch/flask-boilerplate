@@ -30,5 +30,5 @@ When you're ready to deploy your code to a server:
 
 h2. Also See
 
-* API wrapper like "simpleapi":http://simpleapi.de/
+* API wrapper like "simpleapi":https://github.com/flosch/simpleapi
 * "Mobile user agent detection":http://pypi.python.org/pypi/mobile.sniffer to redirect users to a mobile version of the website that uses the "Mobile HTML5 Boilerplate":https://github.com/shichuan/mobile-html5-boilerplate
