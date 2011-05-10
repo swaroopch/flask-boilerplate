@@ -6,8 +6,8 @@ I wanted a super-quick way to create new websites with all my favorite code sett
 
 Why Flask-Boilerplate? Because you get:
 
-# Good code defaults. For example, (1) it uses "packages and modules":http://flask.pocoo.org/docs/patterns/packages/ by default so that controllers (and models) are split into logical groups in separate files, (2) it merges and compresses your various CSS files into one, your multiple JS files into one, for performance reasons.
-# New Project script - sets up everything for you right from including generating the secret key (for secure cookies) to integrating memcache (for example, mimicing @Rails.cache.fetch@ with helpers).
+# Good code defaults. For example, (1) it uses "packages and modules":http://flask.pocoo.org/docs/patterns/packages/ by default so that controllers and models are organized into a standard directory structure and split into multiple files, (2) it merges and compresses your various CSS files into one, your multiple JS files into one, for performance reasons. And so on.
+# New Project script - sets up everything for you right from generating the secret key (for secure cookies) to integrating memcache (including mimicing @Rails.cache.fetch@ with helpers).
 # Deploy to a Ubuntu server with a single command (sets up everything for you, including @virtualenv@, etc.)
 #* NOTE: The installation script works specifically for Ubuntu Linux, Apache, mod_wsgi only.
 # jQuery - no webapp is complete without it
