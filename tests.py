@@ -4,7 +4,12 @@
 $ env TEST=yes python tests.py
 '''
 
-import unittest
+import platform
+
+if platform.python_version_tuple() >= (2,7):
+    import unittest
+else:
+    import unittest2 as unittest
 
 from flask_application import app
 
