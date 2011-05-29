@@ -9,7 +9,7 @@ source "$SITE_CODE_DIR/setup/bashutils.bash"
 
 ## Check Python version ##
 
-if [[ $(python -c "import platform; print (2,6) <= platform.python_version_tuple < (3,0)") != "True" ]]
+if [[ $(python -c "import platform; print (2,6) <= platform.python_version_tuple() < (3,0)") != "True" ]]
 then
     critical "Need at least Python 2.6"
 fi
