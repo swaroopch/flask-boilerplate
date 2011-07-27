@@ -2,10 +2,10 @@
 
 import datetime
 
-from flask import Module, request, render_template
+from flask import Blueprint, request, render_template
 from flask_application import app
 
-frontend = Module(__name__)
+frontend = Blueprint('frontend', __name__)
 
 @frontend.route('/')
 def index():

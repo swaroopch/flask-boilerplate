@@ -86,6 +86,7 @@ app.jinja_env.filters['datetimeformat'] = datetimeformat
 
 # Business Logic
 # http://flask.pocoo.org/docs/patterns/packages/
+# http://flask.pocoo.org/docs/blueprints/
 from flask_application.controllers.frontend import frontend
-app.register_module(frontend)
+app.register_blueprint(frontend)
 
