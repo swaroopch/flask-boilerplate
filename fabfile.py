@@ -46,7 +46,7 @@ def console():
     local('env DEV=yes python -i play.py', capture=False)
 
 
-def serve():
+def server():
     '''Run the dev server'''
     local('env DEV=yes python runserver.py', capture=False)
 
@@ -115,3 +115,7 @@ def update_html5():
     puts(colors.magenta("Committing..."))
     local("git commit -a -m 'Updated HTML5'")
     puts(colors.magenta("Updated HTML5-Boilerplate"))
+
+def clear_pyc():
+    '''Clear the cached .pyc files.'''
+    local("find . -iname '*.pyc' -exec rm -v {} \;", capture=False)
