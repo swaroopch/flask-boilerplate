@@ -1,6 +1,6 @@
 unittest2
 Flask >= 0.7
-Flask-Assets
+git+https://github.com/miracle2k/flask-assets.git#egg=Flask-Assets
 cssmin
 Flask-WTF
 Flask-Script
