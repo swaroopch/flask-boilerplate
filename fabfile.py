@@ -8,7 +8,7 @@ References:
 '''
 
 import platform
-assert (2,6) <= platform.python_version_tuple() < (3,0)
+assert ('2','6') <= platform.python_version_tuple() < ('3','0')
 
 import os
 import datetime
