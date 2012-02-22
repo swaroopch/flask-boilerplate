@@ -22,7 +22,7 @@ h2. Get Started
 @fab code_init:mynewapp.com@
 @fab env_setup@
 Write your code in @flask_application/controllers/frontend.py@
-@fab serve@
+@fab server@
 
 When you're ready to deploy your code to a server:
 
@@ -32,7 +32,7 @@ When you're ready to deploy your code to a server:
 When you clone a repo and want to run it:
 
 @fab env_setup@
-@fab serve@
+@fab server@
 
 h2. Also See
 
