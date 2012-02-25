@@ -27,8 +27,7 @@ fi
 ADMIN_EMAIL="admin@$SITE_NAME"
 
 # /home/foo -> \/home\/foo ... so that sed does not get confused.
-LINUX_HOME="/home/$USER"
-LINUX_HOME_ESCAPED=${LINUX_HOME//\//\\/}
+USER_HOME_ESCAPED=${HOME//\//\\/}
 
 ## Assumptions ##
 
@@ -42,7 +41,8 @@ cd "$SITE_CODE_DIR/$APP_NAME"
 
 info "Generating secret key and updating config file"
 SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789@#$%^*(-_=+)") for i in range(50)])'`
-sed -i -e "s/{SECRET_KEY}/$SECRET_KEY/g" -e "s/{SITE_NAME}/$SITE_NAME/g" "config.py" || critical "Could not fill $APP_NAME/config.py"
+sed -i.bak -e "s/{SECRET_KEY}/$SECRET_KEY/g" -e "s/{SITE_NAME}/$SITE_NAME/g" "config.py" || critical "Could not fill $APP_NAME/config.py"
+rm config.py.bak
 
 cd "$SITE_CODE_DIR/setup"
 
@@ -52,16 +52,19 @@ info "Generating WSGI file"
 if [[ ! -f "$APP_NAME.wsgi" ]]
 then
     git mv run.wsgi "$APP_NAME.wsgi"
-    sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{HOME}/$LINUX_HOME_ESCAPED/g" "$APP_NAME.wsgi" || critical "Could not fill $APP_NAME.wsgi"
+    sed -i.bak -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{HOME}/$USER_HOME_ESCAPED/g" "$APP_NAME.wsgi" || critical "Could not fill $APP_NAME.wsgi"
+    rm "$APP_NAME.wsgi.bak"
 fi
 
 info "Updating fabfile"
 cd "$SITE_CODE_DIR"
-sed -i -e "s/{SITE_NAME}/$SITE_NAME/g"  "fabfile.py" || critical "Could not fill fabfile.py"
+sed -i.bak -e "s/{SITE_NAME}/$SITE_NAME/g"  "fabfile.py" || critical "Could not fill fabfile.py"
+rm fabfile.py.bak
 
 info "Updating Apache site configuration"
 cd "$SITE_CODE_DIR/setup"
-sed -i -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{HOME}/$LINUX_HOME_ESCAPED/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{ADMIN_EMAIL}/$ADMIN_EMAIL/g" -e "s/{USER}/$USER/g" apache_site_entry || critical "Could not fill apache config file"
+sed -i.bak -e "s/{SITE_NAME}/$SITE_NAME/g" -e "s/{HOME}/$USER_HOME_ESCAPED/g" -e "s/{APP_NAME}/$APP_NAME/g" -e "s/{ADMIN_EMAIL}/$ADMIN_EMAIL/g" -e "s/{USER}/$USER/g" apache_site_entry || critical "Could not fill apache config file"
+rm apache_site_entry.bak
 
 info "Removing LICENSE and README files"
 git rm $SITE_CODE_DIR/LICENSE.txt
@@ -69,5 +72,6 @@ git rm $SITE_CODE_DIR/README.textile
 
 info "Setting up the new git repo"
 cd "$SITE_CODE_DIR"
-#sed -i "" -e "s/origin/flask_boilerplate/g" ".git/config"
+#sed -i.bak -e "s/origin/flask_boilerplate/g" ".git/config"
+#rm .git/config.bak
 git commit -a -m "Initial commit for site $SITE_NAME"
