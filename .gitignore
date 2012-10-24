@@ -1,3 +1,4 @@
 *.pyc
 log/*.log
 flask_application/static/gen/*
+flask_application/static/.webassets-cache/
