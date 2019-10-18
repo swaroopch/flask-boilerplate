@@ -1,6 +1,6 @@
 unittest2==0.5.1
+Werkzeug==0.15.3
 Flask==1.0
-Werkzeug==0.8.3
 Jinja2==2.6
 Flask-Assets==0.7
 webassets==0.7
